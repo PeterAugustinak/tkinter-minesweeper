@@ -12,6 +12,8 @@ class Cell:
     def create_btn_object(self, locaton):
         btn = Button(
             locaton,
+            width=12,
+            height=4,
             text=self.tag,
         )
 
