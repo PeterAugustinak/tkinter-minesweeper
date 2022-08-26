@@ -47,10 +47,18 @@ cell_number = 1
 for row in range(settings.GRID_SIZE):
     for column in range(settings.GRID_SIZE):
         cell = Cell(
-            str(cell_number if cell_number > 9 else f'0{cell_number}'))
+            str(cell_number if cell_number > 9 else f'0{cell_number}'),
+            row,
+            column,
+        )
+
         cell.create_btn_object(center_frame)
         cell.cell_btn_object.grid(row=row, column=column)
         cell_number += 1
+
+
+for item in Cell.GRID:
+    print(item, repr(item))
 
 # run the window
 root.mainloop()
