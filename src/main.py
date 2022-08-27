@@ -57,8 +57,10 @@ for row in range(settings.GRID_SIZE):
         cell_number += 1
 
 
-for item in Cell.GRID:
-    print(item, repr(item))
+Cell.randomize_mines()
+
+# for cell in Cell.GRID:
+#     print(repr(cell))
 
 # run the window
 root.mainloop()

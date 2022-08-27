@@ -1,4 +1,7 @@
+from random import sample
 from tkinter import Button
+
+import settings
 
 
 class Cell:
@@ -19,14 +22,14 @@ class Cell:
 
 
     def __repr__(self):
-        return f'c{self.tag} {self.row, self.col}'
+        return f'c{self.tag} {self.row, self.col}: {self.is_mine}'
 
-    def create_btn_object(self, locaton):
+    def create_btn_object(self, location):
         btn = Button(
-            locaton,
+            location,
             width=10,
             height=4,
-            text=self.tag,
+            # text=self.tag,
         )
 
         btn.bind(
@@ -46,11 +49,30 @@ class Cell:
             f"Button {self.tag} {[self.row, self.col]} "
             f"left-clicked! (info: {event}")
 
+        if self.is_mine:
+            self.show_mine()
+        else:
+            self.show_cell()
+
+    def show_mine(self):
+        # interrupt the game as mine was hit
+        self.cell_btn_object.configure(bg='red')
+
+    def show_cell(self):
+        pass
+
+    def get_cell_by_axis(self, row, col):
+        # return cell based on row and col
+        for cell in Cell.GRID:
+            if cell.row == row and cell.col == col:
+                return cell
+
 
     def _right_click_actions(self, event):
         print(f"Button {self.tag} right-clicked! (info: {event}")
 
     @staticmethod
     def randomize_mines():
-        pass
-
+        mines = sample(Cell.GRID, settings.MINES_COUNT)
+        for cell in mines:
+            cell.is_mine = True
