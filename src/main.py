@@ -44,23 +44,23 @@ center_frame.place(x=utils.width_percent(20), y=utils.height_percent(20))
 
 # create grid of cells by looping
 cell_number = 1
-for row in range(settings.GRID_SIZE):
-    for column in range(settings.GRID_SIZE):
+for column in range(settings.GRID_SIZE):
+    for row in range(settings.GRID_SIZE):
         cell = Cell(
             str(cell_number if cell_number > 9 else f'0{cell_number}'),
-            row,
             column,
+            row,
         )
 
         cell.create_btn_object(center_frame)
-        cell.cell_btn_object.grid(row=row, column=column)
+        cell.cell_btn_object.grid(column=column, row=row)
         cell_number += 1
 
 
-Cell.randomize_mines()
+Cell.create_cell_count_label(left_frame)
+Cell.CELL_COUNT_LABEL_OBJ.place(x=5, y=5)
 
-# for cell in Cell.GRID:
-#     print(repr(cell))
+Cell.randomize_mines()
 
 # run the window
 root.mainloop()

@@ -1,4 +1,5 @@
 WIDTH = 800
 HEIGHT = 600
 GRID_SIZE = 6
-MINES_COUNT = (GRID_SIZE ** 2) // 4  # forced integer
+CELL_COUNT = 6 ** 2
+MINES_COUNT = (CELL_COUNT) // 4  # forced integer
