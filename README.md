@@ -20,6 +20,7 @@ Game is playable
 - game over
 ![img_1.png](images/img_1.png)
 
+
 What to improve:
 - restart game after loose/win
 - add levels and progress to the next in case of win
