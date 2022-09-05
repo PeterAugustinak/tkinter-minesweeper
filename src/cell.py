@@ -73,7 +73,14 @@ class Cell:
             if self.surrounding_mines_count == 0:
                 for cell in self.surrounding_cells:
                     cell.show_cell()
+                    self._unbind_events(cell)
 
+        self._unbind_events(self)
+
+    def _unbind_events(self, cell):
+        # cancel all clicks if the cell is open
+        cell.cell_btn_object.unbind('<Button-1>')
+        cell.cell_btn_object.unbind('<Button-3>')
 
     def show_mine(self):
         # interrupt the game as mine was hit
