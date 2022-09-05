@@ -73,9 +73,31 @@ class Cell:
             if self.surrounding_mines_count == 0:
                 for cell in self.surrounding_cells:
                     cell.show_cell()
+                    if Cell.CELL_COUNT == settings.MINES_COUNT:
+                        _game_won()
+
                     self._unbind_events(cell)
 
         self._unbind_events(self)
+
+    def _game_won(self):
+
+        messagebox.showinfo(
+            'YOU WON!',
+            'You found all mines!',
+        )
+        self._play_again()
+
+    def _play_again(self):
+        message = messagebox.askquestion(
+            'MINESWEEPER',
+            'Play again?',
+        )
+
+        if message == 'yes':
+            pass
+        else:
+            sys.exit()
 
     def _unbind_events(self, cell):
         # cancel all clicks if the cell is open
@@ -85,15 +107,12 @@ class Cell:
     def show_mine(self):
         # interrupt the game as mine was hit
         self.cell_btn_object.configure(bg='red', text='MINE!')
-        message = messagebox.askquestion(
+        messagebox.showwarning(
             'GAME OVER',
-            'You hit the mine :(\nPlay again?',
+            'You hit the mine :(',
         )
 
-        if message == 'yes':
-            pass
-        else:
-            sys.exit()
+        self._play_again()
 
     def show_cell(self):
         if not self.is_open:
