@@ -27,7 +27,6 @@ class Cell:
     def __str__(self):
         return f'cell #{self.tag}'
 
-
     def __repr__(self):
         return f'c{self.tag} {self.row, self.col}: {self.is_mine}'
 
@@ -40,8 +39,8 @@ class Cell:
             # text=self.tag
         )
 
-        btn.bind('<Button-1>', self._left_click_actions)  # left mouse btn
-        btn.bind('<Button-3>', self._right_click_actions) # right mouse btn
+        btn.bind('<Button-1>', self._left_click_actions)   # left mouse btn
+        btn.bind('<Button-3>', self._right_click_actions)  # right mouse btn
 
         self.cell_btn_object = btn
 
@@ -60,9 +59,7 @@ class Cell:
 
         Cell.CELL_COUNT_LABEL_OBJ = lbl
 
-
     def _left_click_actions(self, event):
-
         print(f'{self.tag} - {self.is_mine} - {self.surrounding_cells}')
         print(self.surrounding_mines_count)
 
@@ -133,7 +130,7 @@ class Cell:
     @property
     def surrounding_cells(self):
         cells = [
-            self.get_cell_by_axis(self.col - 1, self.row -1),
+            self.get_cell_by_axis(self.col - 1, self.row - 1),
             self.get_cell_by_axis(self.col - 1, self.row),
             self.get_cell_by_axis(self.col - 1, self.row + 1),
             self.get_cell_by_axis(self.col, self.row - 1),
@@ -160,7 +157,6 @@ class Cell:
 
         return mines_count
 
-
     def _right_click_actions(self, event):
         if not self.is_mine_candidate:
             self.cell_btn_object.configure(
@@ -174,7 +170,6 @@ class Cell:
             )
             self.is_mine_candidate = False
             print(f"Cell {self.tag} unmarked as mine candidate")
-
 
     @staticmethod
     def randomize_mines():
