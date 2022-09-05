@@ -1,5 +1,7 @@
+import sys
+
 from random import sample
-from tkinter import Button, Label
+from tkinter import Button, Label, messagebox
 
 import settings
 
@@ -9,6 +11,7 @@ class Cell:
     GRID = []  # lst with all cells
     CELL_COUNT = settings.CELL_COUNT
     CELL_COUNT_LABEL_OBJ = None
+    DEFAULT_CELL_COLOR = "gray"
 
     def __init__(self, tag, row, col, is_mine=False):
         self.tag = tag
@@ -16,6 +19,7 @@ class Cell:
         self.col = col
         self.is_mine = is_mine
         self.is_open = False
+        self.is_mine_candidate = False
         self.cell_btn_object = None
 
         Cell.GRID.append(self)
@@ -32,6 +36,7 @@ class Cell:
             location,
             width=10,
             height=4,
+            bg=self.DEFAULT_CELL_COLOR
             # text=self.tag
         )
 
@@ -73,6 +78,15 @@ class Cell:
     def show_mine(self):
         # interrupt the game as mine was hit
         self.cell_btn_object.configure(bg='red', text='MINE!')
+        message = messagebox.askquestion(
+            'GAME OVER',
+            'You hit the mine :(\nPlay again?',
+        )
+
+        if message == 'yes':
+            pass
+        else:
+            sys.exit()
 
     def show_cell(self):
         if not self.is_open:
@@ -119,7 +133,19 @@ class Cell:
 
 
     def _right_click_actions(self, event):
-        print(f"Button {self.tag} right-clicked! (info: {event}")
+        if not self.is_mine_candidate:
+            self.cell_btn_object.configure(
+                bg='orange'
+            )
+            self.is_mine_candidate = True
+            print(f"Cell {self.tag} marked as mine candidate")
+        else:
+            self.cell_btn_object.configure(
+                bg=self.DEFAULT_CELL_COLOR
+            )
+            self.is_mine_candidate = False
+            print(f"Cell {self.tag} unmarked as mine candidate")
+
 
     @staticmethod
     def randomize_mines():
