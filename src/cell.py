@@ -74,7 +74,7 @@ class Cell:
                 for cell in self.surrounding_cells:
                     cell.show_cell()
                     if Cell.CELL_COUNT == settings.MINES_COUNT:
-                        _game_won()
+                        self._game_won()
 
                     self._unbind_events(cell)
 
