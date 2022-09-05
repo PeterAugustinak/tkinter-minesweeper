@@ -90,7 +90,10 @@ class Cell:
 
     def show_cell(self):
         if not self.is_open:
-            self.cell_btn_object.configure(text=self.surrounding_mines_count)
+            self.cell_btn_object.configure(
+                text=self.surrounding_mines_count,
+                bg=self.DEFAULT_CELL_COLOR
+            )
 
             # replace the text of cells left to actual one
             Cell.CELL_COUNT -= 1
